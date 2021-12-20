@@ -161,22 +161,22 @@ alt.onServer("Client:AdminMenu:GetWaypointInfo", () => {
     //     // emitServer('player:teleportToWaypoint', coords);
     // }
 
-    let waypoint = native.getFirstBlipInfoId(8);
+    let waypoint = game.getFirstBlipInfoId(8);
 
-    if (!native.doesBlipExist(waypoint)) {return;}
+    if (!game.doesBlipExist(waypoint)) {return;}
       const player = alt.Player.local.scriptID;
-      const WaypointPosition = native.getBlipInfoIdCoord(waypoint);
+      const WaypointPosition = game.getBlipInfoIdCoord(waypoint);
 
-      native.setFocusPosAndVel(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, 0 ,0 ,0);
-      native.requestCollisionAtCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z);
+      game.setFocusPosAndVel(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, 0 ,0 ,0);
+      game.requestCollisionAtCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z);
 
       let z = Number(WaypointPosition.z);
-      let IsGround = native.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, undefined, undefined)[0];
+      let IsGround = game.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, undefined, undefined)[0];
       
         setTimeout(() => 
         {
             while(!IsGround) {
-              IsGround = native.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, z, undefined, undefined)[0];
+              IsGround = game.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, z, undefined, undefined)[0];
               z++;
               if(z > 1000) {break;}
             }
@@ -184,7 +184,7 @@ alt.onServer("Client:AdminMenu:GetWaypointInfo", () => {
 
       setTimeout(() => 
       {
-        native.setFocusEntity(player);
+        game.setFocusEntity(player);
         if(!IsGround) {alt.logWarning('Couldn\'t find ground'); return;}
         alt.emitServer('Server:AdminMenu:TeleportWaypoint', new alt.Vector3(WaypointPosition.x, WaypointPosition.y, z));
         // alt.emitServer('TeleportToWaypoint', new alt.Vector3(WaypointPosition.x, WaypointPosition.y, z));  
