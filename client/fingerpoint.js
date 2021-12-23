@@ -122,12 +122,14 @@ let pointing = new Fingerpointing();
 
 alt.on('keydown', (key) => {
     if (key == 'B'.charCodeAt(0)) {
+        if( alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         pointing.start();
     }
 });
 
 alt.on('keyup', (key) => {
     if (key == 'B'.charCodeAt(0)) {
+        if( alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         pointing.stop();
     }
 });

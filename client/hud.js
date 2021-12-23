@@ -1356,7 +1356,7 @@ alt.onServer("Client:ClothesRadial:SetMenuItems", (itemArray) => {
 
 alt.on('keydown', (key) => {
     if (key == 'X'.charCodeAt(0)) {
-        if (alt.Player.local.getSyncedMeta("IsCefOpen")) return;
+        if (alt.Player.local.getSyncedMeta("IsCefOpen") || alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         let result = Raycast.line(1.5, 2.5);
         if (result == undefined && !alt.Player.local.vehicle) return;
         if (!alt.Player.local.vehicle) {
@@ -1400,7 +1400,7 @@ alt.on('keydown', (key) => {
             return;
         }
     } else if (key == 'M'.charCodeAt(0)) {
-        if (alt.Player.local.getSyncedMeta("IsCefOpen") || alt.Player.local.vehicle) return;
+        if (alt.Player.local.getSyncedMeta("IsCefOpen") || alt.Player.local.vehicle || alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         AnimationMenuUsing = true;
         hudBrowser.focus();
         alt.showCursor(true);
@@ -1446,7 +1446,7 @@ alt.on('keydown', (key) => {
     }
     
     else if (key == 'K'.charCodeAt(0)) {
-        if (alt.Player.local.getSyncedMeta("IsCefOpen")) return;
+        if (alt.Player.local.getSyncedMeta("IsCefOpen") || alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         ClothesRadialMenuUsing = true;
         hudBrowser.focus();
         alt.showCursor(true);
@@ -1477,7 +1477,7 @@ alt.on('keydown', (key) => {
 
 alt.on('keyup', (key) => {
     if (key == 'X'.charCodeAt(0)) {
-        if (hudBrowser == null || InteractMenuUsing == false) return;
+        if (hudBrowser == null || InteractMenuUsing == false || alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         hudBrowser.emit("CEF:InteractionMenu:requestAction");
         hudBrowser.emit("CEF:InteractionMenu:toggleInteractionMenu", false);
         InteractMenuUsing = false;
@@ -1485,7 +1485,7 @@ alt.on('keyup', (key) => {
         alt.showCursor(false);
         alt.toggleGameControls(true);
     } else if (key == 'M'.charCodeAt(0)) { 
-        if (hudBrowser == null || alt.Player.local.getSyncedMeta("IsCefOpen")) return;
+        if (hudBrowser == null || alt.Player.local.getSyncedMeta("IsCefOpen") || alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         if (AnimationMenuUsing == true) {
             hudBrowser.emit("CEF:AnimationMenu:requestAction");
             hudBrowser.emit("CEF:AnimationMenu:toggleInteractionMenu", false);
@@ -1513,7 +1513,7 @@ alt.on('keyup', (key) => {
         AnimationMenuCefOpened != AnimationMenuCefOpened;
     } */
     else if (key == 'K'.charCodeAt(0)) {
-        if (hudBrowser == null || alt.Player.local.getSyncedMeta("IsCefOpen") || ClothesRadialMenuUsing == false) return;
+        if (hudBrowser == null || alt.Player.local.getSyncedMeta("IsCefOpen") || ClothesRadialMenuUsing == false || alt.Player.local.getSyncedMeta("HasHandcuffs") == true || alt.Player.local.getSyncedMeta("HasRopeCuffs") == true) return;
         hudBrowser.emit("CEF:ClothesRadial:requestAction");
         hudBrowser.emit("CEF:ClothesRadial:toggleInteractionMenu", false);
         ClothesRadialMenuUsing = false;
@@ -1787,6 +1787,7 @@ alt.everyTick(() => {
         game.disableControlAction(0, 257, true);
         game.disableControlAction(0, 345, true);
         game.disableControlAction(0, 75, true);
+        game.disableControlAction(0, 77, true);
         game.disableControlAction(0, 88, true);
     } else {
         game.enableControlAction(0, 24, true);
@@ -1805,6 +1806,7 @@ alt.everyTick(() => {
         game.enableControlAction(0, 257, true);
         game.enableControlAction(0, 345, true);
         game.enableControlAction(0, 75, true);
+        game.enableControlAction(0, 77, true);
         game.enableControlAction(0, 88, true);
     }
     if (hudBrowser == null) return;
