@@ -1786,6 +1786,8 @@ alt.everyTick(() => {
         game.disableControlAction(0, 141, true);
         game.disableControlAction(0, 257, true);
         game.disableControlAction(0, 345, true);
+        game.disableControlAction(0, 75, true);
+        game.disableControlAction(0, 88, true);
     } else {
         game.enableControlAction(0, 24, true);
         game.enableControlAction(0, 25, true);
@@ -1802,6 +1804,8 @@ alt.everyTick(() => {
         game.enableControlAction(0, 264, true);
         game.enableControlAction(0, 257, true);
         game.enableControlAction(0, 345, true);
+        game.enableControlAction(0, 75, true);
+        game.enableControlAction(0, 88, true);
     }
     if (hudBrowser == null) return;
     if (alt.Player.local.vehicle == null) return;

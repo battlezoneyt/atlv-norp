@@ -234,6 +234,7 @@ alt.on('connectionComplete', () => {
 });//DONE
 
 function loadallIPLsAndInteriors() {
+
     alt.requestIpl("gabz_pillbox_milo_");
     var interiorID = game.getInteriorAtCoords(311.2546, -592.4204, 42.32737);
     if(game.isValidInterior(interiorID))
@@ -246,6 +247,7 @@ function loadallIPLsAndInteriors() {
         game.refreshInterior(interiorID)
     }
 
+    alt.requestIpl('ex_dt1_02_office_02b');
     alt.requestIpl("hei_hw1_blimp_interior_v_apart_midspaz_milo");
     alt.requestIpl('canyonriver01');
     alt.requestIpl('chop_props');
@@ -512,6 +514,7 @@ function loadallIPLsAndInteriors() {
         game.activateInteriorEntitySet(274689, 'Set_Pent_Tint_Shell');
         game.setInteriorEntitySetColor(274689, 'Set_Pent_Tint_Shell', 1);
         game.activateInteriorEntitySet(274689, 'Set_Pent_Pattern_03');
+        game.activateInteriorEntitySet(274689, 'Set_Pent_Pattern_09');
         game.setInteriorEntitySetColor(274689, 'Set_Pent_Pattern_03', 1);
         game.activateInteriorEntitySet(274689, 'Set_Pent_Spa_Bar_Open');
         game.activateInteriorEntitySet(274689, 'Set_Pent_Media_Bar_Open');
@@ -520,7 +523,18 @@ function loadallIPLsAndInteriors() {
         game.activateInteriorEntitySet(274689, 'Set_Pent_Clutter_03');
         game.activateInteriorEntitySet(274689, 'Set_pent_bar_light_02');
         game.refreshInterior(274689);
-        alt.requestIpl('vw_casino_penthouse');
+        alt.requestIpl('sf_dlc_fixer_hanger_door');
+        alt.requestIpl('sf_fixeroffice_bh1_05');
+        alt.requestIpl('sf_fixeroffice_hw1_08');
+        alt.requestIpl('sf_fixeroffice_kt1_05');
+        alt.requestIpl('sf_fixeroffice_kt1_08');
+        alt.requestIpl('sf_int_placement_sec_interior_0_dlc_office_sec_milo_');
+        alt.requestIpl('sf_int_placement_sec_interior_1_dlc_studio_sec_milo_');
+        alt.requestIpl('sf_int_placement_sec_interior_2_dlc_garage_sec_milo_');
+        alt.requestIpl('sf_int_placement_sec_interior_7_dlc_warehouse_sec_milo_');
+        alt.requestIpl('sf_mansionroof');
+        alt.requestIpl('sf_musicrooftop');
+
         alt.requestIpl('vw_casino_main');
         alt.requestIpl('vw_casino_carpark');
         alt.requestIpl('vw_dlc_casino_door');

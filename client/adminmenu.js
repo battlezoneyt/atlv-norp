@@ -162,33 +162,60 @@ alt.onServer("Client:AdminMenu:GetWaypointInfo", () => {
     // }
 
     let waypoint = game.getFirstBlipInfoId(8);
+    if (game.doesBlipExist(waypoint))
+     {
+       var coords = game.getBlipInfoIdCoord(waypoint);
+       var res = game.getGroundZFor3dCoord(coords.x, coords.y, coords.z, undefined, undefined)[0];
+       console.log(res);
+       var  Gz =coords.z;
+          setTimeout(() => { while (!res) {
+          Gz=Gz+0.1;
+          res=game.getGroundZFor3dCoord(coords.x, coords.y, Gz, undefined, undefined)[0];
+           if (Gz>1000) {
+             break;
+           }
+        }
+},1000);
+        if (!res){ 
+          console.log('failed to load ground,Don t worry i will handle that!');//if the player spawned before the texture 
+            setTimeout(() => {                                                //this will help out
+              game.setPedCoordsKeepVehicle(alt.Player.local, coords.x, coords.y,Gz);  //if textures already loaded then nothing to worry about :)         
 
-    if (!game.doesBlipExist(waypoint)) {return;}
-      const player = alt.Player.local.scriptID;
-      const WaypointPosition = game.getBlipInfoIdCoord(waypoint);
+          }, 1000); 
+        };
+        game.setPedCoordsKeepVehicle(alt.Player.local, coords.x, coords.y,Gz);  //if textures already loaded then nothing to worry about :)         
+    }
+    alt.emitServer('Server:AdminMenu:TeleportWaypoint', coords.x, coords.y, Gz);
 
-      game.setFocusPosAndVel(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, 0 ,0 ,0);
-      game.requestCollisionAtCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z);
+    // let waypoint = game.getFirstBlipInfoId(8);
 
-      let z = Number(WaypointPosition.z);
-      let IsGround = game.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, undefined, undefined)[0];
+    // if (!game.doesBlipExist(waypoint)) {return;}
+    //   const player = alt.Player.local.scriptID;
+    //   const WaypointPosition = game.getBlipInfoIdCoord(waypoint);
+
+    //   game.setFocusPosAndVel(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, 0 ,0 ,0);
+    //   game.requestCollisionAtCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z);
+
+    //   let z = Number(WaypointPosition.z);
+    //   let IsGround = game.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, WaypointPosition.z, undefined, undefined)[0];
       
-        setTimeout(() => 
-        {
-            while(!IsGround) {
-              IsGround = game.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, z, undefined, undefined)[0];
-              z++;
-              if(z > 1000) {break;}
-            }
-        }, 1000);
+    //     setTimeout(() => 
+    //     {
+    //         while(!IsGround) {
+    //           IsGround = game.getGroundZFor3dCoord(WaypointPosition.x, WaypointPosition.y, z, undefined, undefined)[0];
+    //           z++;
+    //           if(z > 1000) {break;}
+    //         }
+    //     }, 1000);
 
-      setTimeout(() => 
-      {
-        game.setFocusEntity(player);
-        if(!IsGround) {alt.logWarning('Couldn\'t find ground'); return;}
-        alt.emitServer('Server:AdminMenu:TeleportWaypoint', new alt.Vector3(WaypointPosition.x, WaypointPosition.y, z));
-        // alt.emitServer('TeleportToWaypoint', new alt.Vector3(WaypointPosition.x, WaypointPosition.y, z));  
-      }, 1400); 
+    //   setTimeout(() => 
+    //   {
+    //     game.setFocusEntity(player);
+    //     if(!IsGround) {alt.logWarning('Couldn\'t find ground'); return;}
+    //     alt.emitServer('Server:AdminMenu:TeleportWaypoint', WaypointPosition.x, WaypointPosition.y, z);
+    //     // alt.emitServer('Server:AdminMenu:TeleportWaypoint', new alt.Vector3(WaypointPosition.x, WaypointPosition.y, z));
+    //     // alt.emitServer('TeleportToWaypoint', new alt.Vector3(WaypointPosition.x, WaypointPosition.y, z));  
+    //   }, 1400); 
 
 });
 

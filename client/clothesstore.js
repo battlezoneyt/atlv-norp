@@ -5,16 +5,16 @@ export let clothesStoreBrowser = null;
 
 let opened = false;
 
-alt.on('keyup', (key) => {
-    if (key === 27) {
-        if (clothesStoreBrowser != null) { //Inv �ffnen
-            opened = false;
-            alt.showCursor(false);
-            alt.toggleGameControls(true);
-            clothesStoreBrowser.unfocus();
-        }
-    }
-});
+// alt.on('keyup', (key) => {
+//     if (key === 27) {
+//         if (clothesStoreBrowser != null) { //Inv �ffnen
+//             opened = false;
+//             alt.showCursor(false);
+//             alt.toggleGameControls(true);
+//             clothesStoreBrowser.unfocus();
+//         }
+//     }
+// });
 
 alt.onServer("Client:HUD:CreateCEF", () => {
     if (clothesStoreBrowser == null) {

@@ -37,3 +37,18 @@ if (key == 74) { // J
         }
     }
 }
+
+let ignoredHats = [1, 27, 32, 33];
+alt.on("playerEnteringVehicle", (player, vehicle, seat) => {
+    if (player.valid && vehicle.valid) {
+        if (ignoredHats.includes(player.getProp(0).drawable) || player.getProp(0).drawable == 255) return;
+        player.setMeta("prop", { component: 0, drawable: player.getProp(0).drawable, texture: player.getProp(0).texture });
+    }
+});
+
+alt.on("playerEnteredVehicle", (player, vehicle, seat) => {
+    if (player.valid && vehicle.valid) {
+        if (!player.hasMeta("prop") || ignoredHats.includes(player.getMeta("prop").drawable)) return;
+        player.setProp(player.getMeta("prop").component, player.getMeta("prop").drawable, player.getMeta("prop").texture);
+    }
+});
